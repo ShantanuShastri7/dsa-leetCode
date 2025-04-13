@@ -16,41 +16,55 @@ class Solution {
             return list1;
         if (list1 == null && list2 == null)
             return null;
-        ListNode temp = new ListNode();
-        ListNode reserve = temp;
 
-        while (list1 != null && list2 != null) {
-            System.out.print(list1.val);
-            System.out.print(list2.val);
-            if (list2.val <= list1.val) {
-                temp.next = new ListNode(list2.val);
-                temp=temp.next;
-                temp.next = null;
-                list2 = list2.next;
-            } else {
-                temp.next = new ListNode(list1.val);
-                temp=temp.next;
-                temp.next = null;
-                list1 = list1.next;
+        if(list2.val<=list1.val){
+            ListNode prev = list2;
+            ListNode curr = list2;
+            
+            while (list1!=null&&curr!=null) {
+                if(curr.val<=list1.val) {
+                    prev=curr;
+                    curr=curr.next;
+                } else {
+                    prev.next = new ListNode(list1.val, curr);
+                    prev=prev.next;
+                    list1=list1.next;
+                }
             }
+
+            if(curr==null) {
+                while(list1!=null) {
+                    prev.next = new ListNode(list1.val);
+                    prev=prev.next;
+                    list1=list1.next;
+                }
+            }
+
+            return list2;
+        } else {
+            ListNode prev = list1;
+            ListNode curr = list1;
+            
+            while(curr!=null&&list2!=null) {
+                if(curr.val<=list2.val) {
+                    prev=curr;
+                    curr=curr.next;
+                } else {
+                    prev.next = new ListNode(list2.val, curr);
+                    prev=prev.next;
+                    list2=list2.next;
+                }
+            }
+
+            if(curr==null) {
+                while(list2!=null) {
+                    prev.next = new ListNode(list2.val);
+                    prev=prev.next;
+                    list2=list2.next;
+                }
+            }
+
+            return list1;
         }
-
-        if (list1 == null) {
-            while (list2 != null) {
-                temp.next = new ListNode(list2.val);
-                temp = temp.next;
-                temp.next = null;
-                list2 = list2.next;
-            }
-        } else if (list2 == null) {
-            while (list1 != null) {
-                temp.next = new ListNode(list1.val);
-                temp = temp.next;
-                temp.next = null;
-                list1 = list1.next;
-            }
-        }
-
-        return reserve.next;
     }
 }
