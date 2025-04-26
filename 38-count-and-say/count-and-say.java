@@ -7,8 +7,6 @@ class Solution {
 
         for(int i = 0; i<n-1; i++) {
             res = this.generateNextRLE(res);
-            System.out.print(res);
-            System.out.print("/n");
         }
 
         return res;
