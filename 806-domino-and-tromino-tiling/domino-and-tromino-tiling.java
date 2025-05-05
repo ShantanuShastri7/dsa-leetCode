@@ -12,7 +12,7 @@ class Solution {
         dp[2] = 2;
 
         for(int i=3; i<=n; i++){
-            dp[i]=(2*dp[i-1]%divisor + dp[i-3]%divisor)%divisor;
+            dp[i]=(2*dp[i-1]%divisor + dp[i-3])%divisor;
         }
         return (int)dp[n];
     }
