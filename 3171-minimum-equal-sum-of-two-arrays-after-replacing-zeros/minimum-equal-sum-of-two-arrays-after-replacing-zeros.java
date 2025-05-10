@@ -29,7 +29,6 @@ class Solution {
         } else if(sum1>sum2){
             return sum1;
         } else {
-            System.out.print("else");
             return sum1;
         }
 
