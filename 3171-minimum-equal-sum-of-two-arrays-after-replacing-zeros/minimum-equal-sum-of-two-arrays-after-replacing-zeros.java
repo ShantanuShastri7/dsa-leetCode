@@ -31,6 +31,5 @@ class Solution {
         } else {
             return sum1;
         }
-
     }
 }
