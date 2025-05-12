@@ -20,10 +20,7 @@ class Solution {
         if(head.next==null){
            return 1; 
         }
-
         int nodeCount = removeNode(head.next, nodeFromEnd);
-        System.out.print("nodeFromEnd " + nodeFromEnd);
-        System.out.print("count " + nodeCount);
         if(nodeCount==nodeFromEnd) {
             head.next=head.next.next;
         }
