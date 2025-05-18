@@ -15,13 +15,11 @@ class Solution {
         ListNode result = new ListNode();
         int count = k;
         while(head!=null && count>0){
-            System.out.print("pushing " + count);
             stackedNodes.push(head);
             head=head.next;
             count--;
         }
         if(count!=0 && head==null){
-            System.out.print("nothig to reverse");
             return initialHead;
         } else{
             initialHead=result;
