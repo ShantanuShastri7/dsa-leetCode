@@ -23,7 +23,7 @@ class Solution {
             return initialHead;
         } else{
             initialHead=result;
-            while(!stackedNodes.isEmpty() && stackedNodes.peek()!=null){
+            while(!stackedNodes.isEmpty()){
                 result.next = stackedNodes.pop();
                 result=result.next;
                 result.next=null;
