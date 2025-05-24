@@ -11,13 +11,10 @@ class Solution {
             return allTrees;
         }
 
-        // pick each number as root
         for (int i = start; i <= end; i++) {
-            // recursively build left and right subtrees
             List<TreeNode> leftTrees = buildTrees(start, i - 1);
             List<TreeNode> rightTrees = buildTrees(i + 1, end);
 
-            // combine each left and right tree with root `i`
             for (TreeNode left : leftTrees) {
                 for (TreeNode right : rightTrees) {
                     TreeNode root = new TreeNode(i);
