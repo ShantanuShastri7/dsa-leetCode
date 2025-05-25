@@ -44,10 +44,9 @@ class Solution {
         }
         List<Integer> result = new ArrayList<>();
         Stack<TreeNode> stack = new Stack();
-        stack.push(root);
         TreeNode curr=root;
 
-        while(!stack.isEmpty()){
+        while(!stack.isEmpty()||curr!=null){
             while(curr!=null){
                 stack.push(curr);
                 curr=curr.left;
@@ -57,6 +56,6 @@ class Solution {
             curr=curr.right;
         }
 
-        return result.subList(0,result.size()-1);
+        return result;
     }
 }
