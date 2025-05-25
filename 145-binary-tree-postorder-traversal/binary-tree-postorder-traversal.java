@@ -13,24 +13,56 @@
  *     }
  * }
  */
+// class Solution {
+//     public List<Integer> postorderTraversal(TreeNode root) {
+//         if(root==null) return new ArrayList<>();
+
+//         ArrayList<Integer> results = new ArrayList<>();
+
+//         recursePostOrder(root, results);
+
+//         return results;
+
+//     }
+
+//     private List<Integer> recursePostOrder(TreeNode root, ArrayList<Integer> results){
+//         if(root==null) return results;
+
+//         recursePostOrder(root.left, results);
+//         recursePostOrder(root.right, results);
+//         results.add(root.val);
+
+//         return results;
+//     }
+// }
+
+//Single Stack solution iterative
 class Solution {
     public List<Integer> postorderTraversal(TreeNode root) {
         if(root==null) return new ArrayList<>();
 
-        ArrayList<Integer> results = new ArrayList<>();
+        List<Integer> results = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack();
 
-        recursePostOrder(root, results);
+        TreeNode curr = root;
+        TreeNode lastVisited = null;
 
-        return results;
+        while(!stack.isEmpty()||curr!=null){
 
-    }
+            if(curr!=null){
+                stack.push(curr);
+                curr=curr.left;
+            } else {
+                TreeNode peekNode = stack.peek();
 
-    private List<Integer> recursePostOrder(TreeNode root, ArrayList<Integer> results){
-        if(root==null) return results;
-
-        recursePostOrder(root.left, results);
-        recursePostOrder(root.right, results);
-        results.add(root.val);
+                if (peekNode.right != null && lastVisited != peekNode.right) {
+                    curr = peekNode.right;
+                } else {
+                    results.add(peekNode.val);
+                    lastVisited = stack.pop();
+                }
+            }
+        }
 
         return results;
     }
