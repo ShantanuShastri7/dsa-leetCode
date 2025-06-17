@@ -14,18 +14,29 @@
  * }
  */
 class Solution {
-    int count =0;
     public int countNodes(TreeNode root) {
-        return helper(root);
+        if(root==null) return 0;
+
+        int left = getHeight(root.left)+1;
+        int right = getRightHeight(root.right)+1;
+
+        if(left==right){
+            return (int)Math.pow(2,left)-1;
+        } else{
+            return 1+countNodes(root.left)+countNodes(root.right);
+        }
+
     }
 
-    int helper(TreeNode root) {
-        if(root==null) {
-            return count;
-        }
-        count++;
-        helper(root.right);
-        helper(root.left);
-        return count;
+    private int getHeight(TreeNode root){
+        if(root==null) return 0;
+
+        return getHeight(root.left)+1;
+    }
+
+    private int getRightHeight(TreeNode root){
+        if(root==null) return 0;
+
+        return getRightHeight(root.right)+1;
     }
 }
