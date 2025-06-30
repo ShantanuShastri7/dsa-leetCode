@@ -3,7 +3,7 @@ import java.util.Arrays;
 class Solution {
     public int numSubseq(int[] nums, int target) {
         Arrays.sort(nums);
-        int mod = 1_000_000_007;
+        int mod = 1000000007;
         int left = 0, right = nums.length - 1;
         int result = 0;
 
