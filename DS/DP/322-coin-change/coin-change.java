@@ -15,7 +15,7 @@ class Solution {
             return 1000000;
         }
         if(dp[index][amount]!=-1) return dp[index][amount];
-        int notPick = 0 + helper(coins, amount, index-1, dp);
+        int notPick = helper(coins, amount, index-1, dp);
         int pick=1000000;
         if(coins[index]<=amount){
             pick=1+helper(coins, amount-coins[index], index, dp);
