@@ -1,21 +1,43 @@
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        int n = nums.length;
-        int[][] dp = new int[n+1][n+1];
+        int[] list = new int[nums.length];
+        int size = 0;
 
-        for (int i = n-1; i>=0; i--) {
-            for (int j = i-1; j>=-1; j--) {
-                int notTake = dp[i+1][j+1];
-                int take = 0;
-                if (j == -1 || nums[i] > nums[j]) {
-                    take = 1 + dp[i+1][i+1];
-                }
-
-                dp[i][j + 1] = Math.max(take, notTake);
+        for (int x : nums) {
+            int i = 0, j = size;
+            while (i < j) {
+                int m = (i + j) / 2;
+                if (list[m] < x)
+                    i = m + 1;
+                else
+                    j = m;
             }
+            list[i] = x;
+            if (i == size)
+                size++;
         }
-        return dp[0][0];
+
+        return size;
     }
+
+    // public int lengthOfLIS(int[] nums) {
+    //     int n = nums.length;
+    //     int[][] dp = new int[n+1][n+1];
+
+    //     for (int i = n-1; i>=0; i--) {
+    //         for (int j = i-1; j>=-1; j--) {
+    //             int notTake = dp[i+1][j+1];
+    //             int take = 0;
+    //             if (j == -1 || nums[i] > nums[j]) {
+    //                 take = 1 + dp[i+1][i+1];
+    //             }
+
+    //             dp[i][j + 1] = Math.max(take, notTake);
+    //         }
+    //     }
+
+    //     return dp[0][0];
+    // }
 
     private int helper(int[] nums, int index, int prevIndex, int[][] dp) {
         if (index == nums.length)
