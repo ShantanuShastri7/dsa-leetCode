@@ -5,11 +5,10 @@ class Solution {
 
         for (int num : nums) {
             if (num <= first) {
-                first = num; // Smallest so far
+                first = num;
             } else if (num <= second) {
-                second = num; // Second smallest
+                second = num;
             } else {
-                // Found a third one
                 return true;
             }
         }
