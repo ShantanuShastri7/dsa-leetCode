@@ -27,6 +27,7 @@ class Solution {
         return dp[0][c + 1];
     }
 
+    //Memoization MLE
     // public int minCost(int n, int[] cuts) {
     //     int[] allCuts = new int[cuts.length + 2];
     //     int dp[][] = new int[n+2][n+2];
