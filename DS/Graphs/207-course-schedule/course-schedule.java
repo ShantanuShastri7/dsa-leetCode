@@ -25,7 +25,7 @@ class Solution {
             count++;
 
             for (int next : adj.get(course)) {
-                inDegree[next]--;
+                --inDegree[next];
                 if (inDegree[next] == 0)
                     q.offer(next);
             }
