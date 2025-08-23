@@ -5,9 +5,7 @@ class Solution {
 
         while(i<=j){
             boolean leftSorted=false;
-            boolean rightSorted=false;
             int num = (i+j)/2;
-            if(nums[num]<=nums[j]) rightSorted=true;
             if(nums[num]>=nums[i]) leftSorted=true;
 
             if(nums[num]==target) return true;
