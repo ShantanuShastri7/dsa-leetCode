@@ -19,7 +19,6 @@ class Solution {
 
         i=lowerBound; 
         j=nums.length-1;
-        System.out.print(lowerBound +" : " +nums[lowerBound]);
         int upperBound=0;
 
         while(i<=j){
