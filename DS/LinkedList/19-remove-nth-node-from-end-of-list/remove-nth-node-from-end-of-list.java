@@ -11,20 +11,24 @@
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
         if(head==null) return null;
-        int count = removeNode(head, n);
-        if(count==n) return head.next;
-        else return head;
+        
+        ListNode dummy = new ListNode(0, head); 
+        removeNode(dummy, head, n);
+        return dummy.next;
     }
 
-    private int removeNode(ListNode head, int nodeFromEnd){
-        if(head.next==null){
-           return 1; 
+    private int removeNode(ListNode prev, ListNode current, int n){
+        if(current==null) return 1;
+
+        int fromLast = removeNode(current, current.next, n);
+        if(fromLast==n){
+            if(prev==null){
+                current=current.next;
+            } else {
+                prev.next=current.next;
+            }
         }
-        int nodeCount = removeNode(head.next, nodeFromEnd);
-        if(nodeCount==nodeFromEnd) {
-            head.next=head.next.next;
-        }
-        nodeCount++;
-        return nodeCount;
+
+        return fromLast+1;
     }
 }
