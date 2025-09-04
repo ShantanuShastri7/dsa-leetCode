@@ -16,10 +16,10 @@ class Solution {
         ListNode right = mid.next;
         mid.next=null;
 
-        ListNode leftSorted = sortList(head);
-        ListNode rightSorted = sortList(right);
+        head = sortList(head);
+        right = sortList(right);
 
-        return merge(leftSorted, rightSorted);
+        return merge(head, right);
     }
 
     private ListNode findMid(ListNode head){
@@ -50,5 +50,4 @@ class Solution {
         tail.next = (l1 != null) ? l1 : l2;
         return dummy.next;
     }
-
 }
