@@ -1,53 +1,40 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        if(root == null) return new ArrayList<List<Integer>>();  
-        ArrayList<List<Integer>> result = new ArrayList<>();
-        Stack<TreeNode> stack = new Stack<>();
-        stack.add(root);
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) return result;
 
-        while(!stack.isEmpty()){
-            Stack<TreeNode> secondaryStack = new Stack<>();
-            Stack<TreeNode> tertiaryStack = new Stack<>();
-            ArrayList<Integer> levelResult = new ArrayList<>();
-            ArrayList<Integer> levelResult2 = new ArrayList<>();
-            while(!stack.isEmpty()){
-                TreeNode curr = stack.pop();
-                levelResult.add(curr.val);
+        Deque<TreeNode> dq = new ArrayDeque<>();
+        dq.offer(root);
+        boolean leftToRight = true;
 
-                if(curr.left!=null) secondaryStack.add(curr.left);
-                if(curr.right!=null) secondaryStack.add(curr.right);
+        while (!dq.isEmpty()) {
+            int size = dq.size();
+            List<Integer> level = new ArrayList<>();
+
+            for (int i = 0; i < size; i++) {
+                if (leftToRight) {
+                    // Pop from FRONT
+                    TreeNode node = dq.pollFirst();
+                    level.add(node.val);
+
+                    // Add children LEFT → RIGHT at BACK
+                    if (node.left != null) dq.offerLast(node.left);
+                    if (node.right != null) dq.offerLast(node.right);
+                } else {
+                    // Pop from BACK
+                    TreeNode node = dq.pollLast();
+                    level.add(node.val);
+
+                    // Add children RIGHT → LEFT at FRONT
+                    if (node.right != null) dq.offerFirst(node.right);
+                    if (node.left != null) dq.offerFirst(node.left);
+                }
             }
-            stack = secondaryStack;
-            result.add(levelResult);
 
-            if(secondaryStack.isEmpty()) break;
-
-            while(!stack.isEmpty()){
-                TreeNode curr = stack.pop();
-                levelResult2.add(curr.val);
-
-                if(curr.right!=null) tertiaryStack.add(curr.right);
-                if(curr.left!=null) tertiaryStack.add(curr.left);
-            }
-
-            result.add(levelResult2);
-            stack = tertiaryStack;
+            result.add(level);
+            leftToRight = !leftToRight; // Flip the direction for the next level
         }
+
         return result;
     }
 }
