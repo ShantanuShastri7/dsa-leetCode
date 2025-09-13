@@ -7,11 +7,42 @@ class Solution {
         if(coins[0]>amount) return -1;
 
         int[][] dp = new int[coins.length][amount+1];
-        for(int i=0; i<coins.length; i++) Arrays.fill(dp[i], -1);
 
-        int result = helper(coins, amount, coins.length-1, dp);
-        return result==1000000?-1:result;
+        for(int j=0; j<=amount; j++){
+            if(j%coins[0]==0) dp[0][j] = j/coins[0];
+            else dp[0][j] = 1000000;
+        }
+
+        for(int i=1; i<coins.length; i++){
+            for(int j=0; j<=amount; j++){
+
+                int notPick = dp[i-1][j];
+                int pick=1000000;
+                if(coins[i]<=j){
+                    pick=1+dp[i][j-coins[i]];
+                }
+
+                dp[i][j]=Math.min(pick,notPick);
+            }
+        }
+
+        return dp[coins.length-1][amount]==1000000?-1:dp[coins.length-1][amount];
     }
+
+    //Memoization
+    // public int coinChange(int[] coins, int amount) {
+    //     if(coins.length==0) return 0;
+    //     if(amount==0) return 0;
+
+    //     Arrays.sort(coins);
+    //     if(coins[0]>amount) return -1;
+
+    //     int[][] dp = new int[coins.length][amount+1];
+    //     for(int i=0; i<coins.length; i++) Arrays.fill(dp[i], -1);
+
+    //     int result = helper(coins, amount, coins.length-1, dp);
+    //     return result==1000000?-1:result;
+    // }
 
     private int helper(int[] coins, int amount, int index, int dp[][]){
         if(index==0){
