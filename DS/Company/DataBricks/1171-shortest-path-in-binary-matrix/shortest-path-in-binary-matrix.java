@@ -8,16 +8,16 @@ class Solution {
         int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};
         int[] dy = {-1, 0, 1, -1, 1, -1, 0, 1};
 
-        int[][] visited = new int[n][n];
-        for (int[] row : visited) {
+        int[][] distance = new int[n][n];
+        for (int[] row : distance) {
             Arrays.fill(row, Integer.MAX_VALUE);
         }
 
         PriorityQueue<Pair<Integer, Pair<Integer, Integer>>> pq = new PriorityQueue<>(
             (a, b) -> a.getKey() - b.getKey()
         );
-        pq.offer(new Pair<>(1, new Pair<>(0, 0))); // Distance starts at 1
-        visited[0][0] = 1;
+        pq.offer(new Pair<>(1, new Pair<>(0, 0)));
+        distance[0][0] = 1;
 
         while (!pq.isEmpty()) {
             Pair<Integer, Pair<Integer, Integer>> node = pq.poll();
@@ -25,20 +25,20 @@ class Solution {
             int x = node.getValue().getKey();
             int y = node.getValue().getValue();
 
-            if (x == n - 1 && y == n - 1) return dist; // Reached destination
+            if (x == n - 1 && y == n - 1) return dist; 
 
             for (int k = 0; k < 8; k++) {
                 int newX = x + dx[k];
                 int newY = y + dy[k];
 
                 if (newX >= 0 && newX < n && newY >= 0 && newY < n && grid[newX][newY] == 0) {
-                    if (dist + 1 < visited[newX][newY]) {
-                        visited[newX][newY] = dist + 1; // Update distance
+                    if (dist + 1 < distance[newX][newY]) {
+                        distance[newX][newY] = dist + 1; 
                         pq.offer(new Pair<>(dist + 1, new Pair<>(newX, newY)));
                     }
                 }
             }
         }
-        return -1; // No path exists
+        return -1; 
     }
 }
