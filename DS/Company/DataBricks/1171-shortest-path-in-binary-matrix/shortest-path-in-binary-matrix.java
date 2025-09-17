@@ -13,9 +13,12 @@ class Solution {
             Arrays.fill(row, Integer.MAX_VALUE);
         }
 
-        PriorityQueue<Pair<Integer, Pair<Integer, Integer>>> pq = new PriorityQueue<>(
-            (a, b) -> a.getKey() - b.getKey()
-        );
+        // PriorityQueue<Pair<Integer, Pair<Integer, Integer>>> pq = new PriorityQueue<>(
+        //     (a, b) -> a.getKey() - b.getKey()
+        // );
+
+        Queue<Pair<Integer, Pair<Integer, Integer>>> pq = new LinkedList<>();
+
         pq.offer(new Pair<>(1, new Pair<>(0, 0)));
         distance[0][0] = 1;
 
