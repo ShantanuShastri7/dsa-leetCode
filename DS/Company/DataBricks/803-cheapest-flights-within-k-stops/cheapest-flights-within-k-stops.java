@@ -26,8 +26,6 @@ class Solution {
             for(int[] adj : adjacency.get(source)){
                 int next = adj[0];
                 int nextDis = adj[1];
-                System.out.print(" source: "+source+" next: "+next);
-                System.out.print(" dis: "+dis+" nextDis: "+nextDis+" distatNext: "+dist[next]);
 
                 if(dis+nextDis<dist[next] && hops<k+1){
                     dist[next] = dis+nextDis;
