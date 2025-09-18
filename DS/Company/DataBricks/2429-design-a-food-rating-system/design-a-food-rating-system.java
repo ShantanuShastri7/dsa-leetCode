@@ -49,3 +49,18 @@ class FoodRatings {
  * obj.changeRating(food,newRating);
  * String param_2 = obj.highestRated(cuisine);
  */
+
+//  Iterator<Pair<String, Integer>> it = set.iterator();
+//     while (it.hasNext()) {
+//         Pair<String, Integer> element = it.next();
+//         if (element.getKey().equals(food)) {
+//             it.remove();
+//             break; // only one match, can break early
+//         }
+//     }
+
+// cuisineToFood.putIfAbsent(cuisines[i], new TreeSet<>((a, b) -> {
+//             int ratingCompare = Integer.compare(b.getValue(), a.getValue());
+//             if (ratingCompare != 0) return ratingCompare;
+//             return a.getKey().compareTo(b.getKey());
+//         }));
