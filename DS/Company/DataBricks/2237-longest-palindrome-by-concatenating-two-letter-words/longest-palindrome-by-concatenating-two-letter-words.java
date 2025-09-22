@@ -26,7 +26,7 @@ class Solution {
                 int pairs = Math.min(map.get(word), map.get(reverse));
                 length += pairs * 4;
                 map.put(word, 0); // Avoid double counting
-                // map.put(reverse, 0);
+                map.put(reverse, 0);
             }
         }
 
