@@ -28,9 +28,8 @@ class Solution {
             leftDepth--;
         }
         String leftFinal = left.toString();
-        System.out.print("left: " + leftFinal);
         String rightFinal = str.reverse().toString();
-        System.out.print(" right: " + rightFinal);
+
         return leftFinal+rightFinal;
     }
 
