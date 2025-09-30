@@ -1,4 +1,7 @@
 class Solution {
+    //low = first 1
+    //mid = first unsorted index
+    //high = last unsorted index
     public void sortColors(int[] nums) {
         int low=0; 
         int mid=0; 
