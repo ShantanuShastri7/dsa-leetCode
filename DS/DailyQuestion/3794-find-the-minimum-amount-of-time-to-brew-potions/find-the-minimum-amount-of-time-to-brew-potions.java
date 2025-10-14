@@ -24,8 +24,6 @@ class Solution {
                 prevWizardDone = Math.max(prevPotionDone, candidate);
             }
 
-            System.out.print(" At mana:" + j + " prevWizardDone: "+prevWizardDone);
-
             prevWizardDone += sumSkill * (long) mana[j];
         }
 
