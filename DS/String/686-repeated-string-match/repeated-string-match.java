@@ -26,7 +26,6 @@ class Solution {
                         repeats++;
                     }
 
-                    if (repeats > (b.length() / n) + 2) break;
                 }
             }
 
