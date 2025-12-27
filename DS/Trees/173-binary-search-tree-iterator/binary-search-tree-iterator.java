@@ -14,31 +14,30 @@
  * }
  */
 class BSTIterator {
-    TreeNode t;
-    ArrayList<Integer> inorder = new ArrayList<>();
-    int index=0;
-    int size=0;
+    ArrayList<Integer> inorded = new ArrayList<>();
+    int currentIndex=-1;
 
     public BSTIterator(TreeNode root) {
-        this.t=root;
-        this.createInorder(t);
-        this.size=this.inorder.size();
+        inorderIterator(root);
     }
     
     public int next() {
-        return inorder.get(index++);
+        currentIndex++;
+        return inorded.get(currentIndex);
     }
     
     public boolean hasNext() {
-        if(size>index) return true;
-        else return false;
+        if(currentIndex<inorded.size()-1) return true;
+
+        return false;
     }
 
-    private void createInorder(TreeNode root){
+    private void inorderIterator(TreeNode root){
         if(root==null) return;
-        createInorder(root.left);
-        inorder.add(root.val);
-        createInorder(root.right);
+
+        inorderIterator(root.left);
+        inorded.add(root.val);
+        inorderIterator(root.right);
     }
 }
 
@@ -48,3 +47,41 @@ class BSTIterator {
  * int param_1 = obj.next();
  * boolean param_2 = obj.hasNext();
  */
+
+
+
+
+
+
+
+
+
+
+//  class BSTIterator {
+//     TreeNode t;
+//     ArrayList<Integer> inorder = new ArrayList<>();
+//     int index=0;
+//     int size=0;
+
+//     public BSTIterator(TreeNode root) {
+//         this.t=root;
+//         this.createInorder(t);
+//         this.size=this.inorder.size();
+//     }
+    
+//     public int next() {
+//         return inorder.get(index++);
+//     }
+    
+//     public boolean hasNext() {
+//         if(size>index) return true;
+//         else return false;
+//     }
+
+//     private void createInorder(TreeNode root){
+//         if(root==null) return;
+//         createInorder(root.left);
+//         inorder.add(root.val);
+//         createInorder(root.right);
+//     }
+// }
