@@ -23,7 +23,6 @@ class Solution {
         while (!stack.isEmpty()) {
             TreeNode curr = stack.pop();
 
-
             if (curr.right != null) stack.push(curr.right);
             if (curr.left != null) stack.push(curr.left);
 
