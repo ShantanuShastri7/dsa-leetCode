@@ -1,6 +1,31 @@
 class Solution {
     public int knapsack(int W, int val[], int wt[]) {
         int maxWt = Arrays.stream(wt).max().getAsInt();
+        int[][] dp = new int[val.length+1][W+1];
+        
+        for(int i=0; i<=W; i++){
+            dp[0][i]=0;
+        }
+        
+        for(int i=1; i<=val.length; i++){
+            for(int j=0; j<=W; j++){
+                int notPick = dp[i-1][j];
+        
+                int pick=0;
+                
+                if(wt[i-1]<=j){
+                    pick = val[i-1] + dp[i-1][j-wt[i-1]];
+                }
+                
+                dp[i][j] = Math.max(pick, notPick);
+            }
+        }
+        
+        return dp[val.length][W];
+    }
+    
+    public int knapsack(int W, int val[], int wt[]) {
+        int maxWt = Arrays.stream(wt).max().getAsInt();
         
         int[][] dp = new int[val.length][W+1];
         for(int i=0; i<val.length; i++){
@@ -25,3 +50,4 @@ class Solution {
         return dp[index][W] = Math.max(pick, notPick);
     }
 }
+
