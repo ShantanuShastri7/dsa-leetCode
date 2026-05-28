@@ -1,37 +1,23 @@
 class Solution {
     public int[] productExceptSelf(int[] nums) {
-        int[] result = new int[nums.length];
-        Arrays.fill(result, 1);
+        int[] leftPass = new int[nums.length];
+        int[] rightPass = new int[nums.length];
+        leftPass[0]=nums[0];
+        rightPass[nums.length-1]=nums[nums.length-1];
 
-        int prod=1;
-        int zeroCount=0;
-        int withoutZeroProd=1;
-
-        for(int num : nums){
-            if(num==0){
-                zeroCount++;
-                if(zeroCount>1){
-                    withoutZeroProd=withoutZeroProd*num;
-                }
-                prod=prod*num;
-            } else{
-                withoutZeroProd=withoutZeroProd*num;
-                prod=prod*num;
-            }
+        for(int i=1, j=nums.length-2; i<nums.length && j>0; i++, j--){
+            leftPass[i]=leftPass[i-1]*nums[i];
+            rightPass[j]=rightPass[j+1]*nums[j];
         }
 
-        for(int i=0; i<nums.length; i++){
-            if(nums[i]==0){
-                if(zeroCount<2){
-                    result[i]=withoutZeroProd;
-                } else{
-                    result[i]=0;
-                }
-            } else{
-                result[i]=prod/nums[i];
-            }
+        int[] solution = new int[nums.length];
+        solution[0]=rightPass[1];
+        solution[nums.length-1]=leftPass[nums.length-2];
+
+        for(int i=1; i<nums.length-1; i++){
+            solution[i]=leftPass[i-1]*rightPass[i+1];
         }
 
-        return result;
+        return solution;
     }
 }
