@@ -1,31 +1,23 @@
 class Solution {
     public int findMin(int[] nums) {
-        int i=0;
-        int j=nums.length-1;
-        int result = Integer.MAX_VALUE;
+        return helper(nums, 0, nums.length-1);
+    }
 
-        while(i<=j){
-            int mid = (i+j)/2;
+    private int helper(int[] nums, int start, int end){
+        if(end-start<=1) return nums[start]<nums[end]?nums[start]:nums[end];
 
-            boolean leftSorted = false;
-            boolean rightSorted = false;
+        boolean isLeftSorted=false;
+        boolean isRightSorted=false;
 
-            if(nums[i]<=nums[mid]) leftSorted=true;
-            if(nums[mid]<=nums[j]) rightSorted=true;
+        int mid = (start+end+1)/2;
 
-            if(leftSorted&&rightSorted){
-                result=Math.min(result, nums[i]);
-                break;
-            } else if(leftSorted){
-                result=Math.min(result, nums[i]);
-                i=mid+1;
-            } else{
-                result=Math.min(result, nums[mid]);
-                j=mid-1;
-            }
+        if(nums[mid]>=nums[start]) isLeftSorted=true;
+        if(nums[end]>=nums[mid]) isRightSorted=true;
 
-        }
+        if(isLeftSorted && isRightSorted) return nums[start];
 
-        return result;
+        if(isLeftSorted) return helper(nums, mid, end);
+        else return helper(nums, start, mid);
+
     }
 }
