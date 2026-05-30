@@ -1,65 +1,31 @@
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        List<List<Integer>> result = new ArrayList<>();
         Arrays.sort(nums);
-        int n = nums.length;
+        List<List<Integer>> result = new ArrayList<>();
 
-        for (int i = 0; i < n - 2; i++) {
+        for(int i=0; i<nums.length; i++){
+            int firstPivot = nums[i];
+            int remainingSum = 0 - firstPivot;
+            int j = i+1;
+            int k = nums.length-1;
 
-            // Skip duplicate first elements
-            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            while(j<k){
+                int sum = nums[j]+nums[k];
 
-            int left = i + 1;
-            int right = n - 1;
-
-            while (left < right) {
-                int sum = nums[i] + nums[left] + nums[right];
-
-                if (sum == 0) {
-                    result.add(Arrays.asList(nums[i], nums[left], nums[right]));
-
-                    // Skip duplicates for left and right
-                    while (left < right && nums[left] == nums[left + 1]) left++;
-                    while (left < right && nums[right] == nums[right - 1]) right--;
-
-                    left++;
-                    right--;
-                } else if (sum < 0) {
-                    left++;
-                } else {
-                    right--;
+                if(sum<remainingSum) {
+                    j++;
+                }else if(sum>remainingSum) {
+                    k--;
+                }else {
+                    result.add(Arrays.asList(nums[i], nums[j], nums[k]));
+                    j++;
+                    while(j<k && nums[j]==nums[j-1]) j++;
                 }
             }
-        }
 
+            while(i<nums.length-2 && nums[i]==nums[i+1]) i++;
+        }
+        
         return result;
     }
 }
-
-
-
-
-
-
-// class Solution {
-//     public List<List<Integer>> threeSum(int[] nums) {
-//         Arrays.sort(nums);
-//         int n = nums.length;
-//         Set<List<Integer>> result = new HashSet<>();
-
-//         for(int i=0; i<n; i++){
-//             int rem = -nums[i];
-//             Map<Integer, Integer> list = new HashMap<>();
-
-//             for(int j=i+1; j<n; j++){
-//                 if(list.containsKey(rem-nums[j])){
-//                     list.put(nums[j], 0);
-//                     result.add(new ArrayList<>(Arrays.asList(nums[i], nums[j], rem-nums[j])));
-//                 }
-//                 list.put(nums[j], 0);
-//             }
-//         }
-
-//         return new ArrayList<>(result);
-//     }
-// }
