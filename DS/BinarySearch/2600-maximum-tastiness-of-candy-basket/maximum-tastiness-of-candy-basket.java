@@ -8,9 +8,7 @@ class Solution {
 
         while(min<=max){
             int mid = (min+max)/2;
-            System.out.print("mid: " + mid + "\n");
             if(helper(price, k, mid)){
-                System.out.print("Can Pick \n");
                 answer=Math.max(answer, mid);
                 min=mid+1;
             } else{
