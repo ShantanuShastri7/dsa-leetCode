@@ -1,19 +1,16 @@
 class Solution {
     public int climbStairs(int n) {
-        int[] memo = new int[n+1];
-        Arrays.fill(memo, -1);
-        int result = helper(n,memo);
+        int[] mem = new int[n+1];
+        Arrays.fill(mem, -1);
 
-        return result;
+        return helper(n, mem);
     }
 
-    private int helper(int n, int[] memo){
+    private int helper(int n, int[] mem){
         if(n<=1) return 1;
 
-        if(memo[n]!=-1) return memo[n];
+        if(mem[n]!=-1) return mem[n];
 
-        memo[n] = helper(n-1, memo) + helper(n-2, memo);
-
-        return memo[n];
+        return mem[n]=helper(n-1, mem)+helper(n-2, mem);
     }
 }
