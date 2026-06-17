@@ -33,3 +33,44 @@ class Solution {
         return dp[index][prevIndex + 1] = Math.max(take, notTake);
     }
 }
+
+
+
+
+
+
+
+
+
+
+//Solved on 16/6/26
+class Solution {
+    static int lis(int arr[]) {
+        int[][] mem = new int[arr.length][arr.length+1];
+        
+        for(int i=0; i<arr.length; i++){
+            Arrays.fill(mem[i], -1);
+        }
+        
+        return helper(arr, arr.length-1, arr.length, mem);
+        
+    }
+    
+    private static int helper(int arr[], int index, int prevIndex, int mem[][]){
+        if(index<0) return 0;
+        
+        if(mem[index][prevIndex]!=-1) return mem[index][prevIndex];
+        
+        int pick=0;
+        int notPick=0;
+        
+        if(prevIndex==arr.length || arr[index]<arr[prevIndex]){
+            //System.out.print("index: "+arr[index]+" prevIndex: "+arr[prevIndex-1]+"\n");
+            pick = 1 + helper(arr, index-1, index, mem);
+        }
+        
+        notPick = helper(arr, index-1, prevIndex, mem);
+        
+        return mem[index][prevIndex]=Math.max(pick, notPick);
+    }
+}
