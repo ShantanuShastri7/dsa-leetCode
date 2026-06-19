@@ -1,26 +1,24 @@
 class Solution {
     public int rob(int[] nums) {
-        int n = nums.length;
-        if (n == 1) return nums[0];
-        
-        int[] memo1 = new int[n];
-        Arrays.fill(memo1, -1);
-        int max1 = helper(nums, 0, n - 2, memo1);
+        int[] mem = new int[nums.length];
+        int[] mem1 = new int[nums.length];
+        Arrays.fill(mem, -1);
+        Arrays.fill(mem1, -1);
 
-        int[] memo2 = new int[n];
-        Arrays.fill(memo2, -1);
-        int max2 = helper(nums, 1, n - 1, memo2);
+        int answer = Math.max(nums[0]+helper(nums, 2, mem, nums.length-1), helper(nums, 1, mem1, nums.length));
 
-        return Math.max(max1, max2);
+        return answer;
     }
 
-    private int helper(int[] nums, int start, int end, int[] memo) {
-        if (start > end) return 0;
-        if (memo[start] != -1) return memo[start];
+    private int helper(int[] nums, int index, int[] mem, int endIndex){
+        if(index>=endIndex) return 0;
 
-        int pick = nums[start] + helper(nums, start + 2, end, memo);
-        int notPick = helper(nums, start + 1, end, memo);
+        if(mem[index]!=-1) return mem[index];
 
-        return memo[start] = Math.max(pick, notPick);
+        int pick = nums[index] + helper(nums, index+2, mem, endIndex);
+
+        int notPick = helper(nums, index+1, mem, endIndex);
+
+        return  mem[index] = Math.max(pick, notPick);
     }
 }
