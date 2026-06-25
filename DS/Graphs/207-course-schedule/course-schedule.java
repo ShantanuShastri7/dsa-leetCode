@@ -19,7 +19,6 @@ class Solution {
 
         for(int i=0; i<numCourses; i++){
             if(inCount[i]==0){
-                System.out.print("Adding course: "+i);
                 pq.offer(i);
             }
         }
