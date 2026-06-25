@@ -1,36 +1,42 @@
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        List<List<Integer>> adj = new ArrayList<>();
-        int[] inDegree = new int[numCourses];
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        for(int i=0; i<numCourses; i++){
+            map.put(i, new ArrayList<>());
+        }
+        int[] inCount = new int[numCourses];
 
-
-        for (int i = 0; i < numCourses; i++)
-            adj.add(new ArrayList<>());
-
-        for (int[] pre : prerequisites) {
-            int u = pre[1], v = pre[0];
-            adj.get(u).add(v);   
-            inDegree[v]++;
+        for(int[] preReq : prerequisites){
+            int main = preReq[0];
+            int dependent = preReq[1];
+            inCount[main]++;
+            map.get(dependent).add(main);
         }
 
-        Queue<Integer> q = new LinkedList<>();
-        for (int i = 0; i < numCourses; i++)
-            if (inDegree[i] == 0)
-                q.offer(i);
+        int count=0;
 
-        int count = 0;
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
 
-        while (!q.isEmpty()) {
-            int course = q.poll();
-            count++;
-
-            for (int next : adj.get(course)) {
-                --inDegree[next];
-                if (inDegree[next] == 0)
-                    q.offer(next);
+        for(int i=0; i<numCourses; i++){
+            if(inCount[i]==0){
+                System.out.print("Adding course: "+i);
+                pq.offer(i);
             }
         }
 
-        return count == numCourses;
+        while(!pq.isEmpty()){
+            Integer node = pq.poll();
+            count++;
+            List<Integer> adjacents = map.get(node);
+
+            for(Integer adj : adjacents){
+                inCount[adj]--;
+                if(inCount[adj]==0){
+                    pq.offer(adj);
+                }
+            }
+        }
+
+        return count==numCourses;
     }
 }
