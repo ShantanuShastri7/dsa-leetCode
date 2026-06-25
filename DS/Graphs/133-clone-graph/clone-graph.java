@@ -20,70 +20,26 @@ class Node {
 
 class Solution {
     public Node cloneGraph(Node node) {
-        if(node==null) return null;
+        Map<Node, Node> map = new HashMap<>();
 
-        Map<Node, Node> oldToNew = new HashMap<>();
-        oldToNew.put(node, new Node(node.val));
+        dfs(node, map);
+        return map.get(node);
+    }
 
-        Queue<Node> q = new LinkedList<>();
-        q.offer(node);
+    private void dfs(Node node, Map<Node, Node> map){
+        if(node==null) return;
 
-        while(!q.isEmpty()){
-            Node curr = q.peek();
-            Node newCurr = oldToNew.get(curr);
-            q.poll();
+        List<Node> adjacents = node.neighbors;
+        Node newNode = new Node(node.val, new ArrayList<>());
+        map.put(node, newNode);
 
-            List<Node> neigh = curr.neighbors;
-
-            for(Node nei : neigh){
-                if(!oldToNew.containsKey(nei)){
-                    oldToNew.put(nei, new Node(nei.val));
-                    q.offer(nei);
-                }
-                newCurr.neighbors.add(oldToNew.get(nei));
+        for(Node adj : adjacents){
+            if(!map.containsKey(adj)){
+                dfs(adj, map);
             }
+            newNode.neighbors.add(map.get(adj));
         }
-        System.out.print(oldToNew);
 
-        return oldToNew.get(node);
+        return;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// class Solution {
-//     public Node cloneGraph(Node node) {
-//         if (node == null) return null;
-
-//         Map<Node, Node> map = new HashMap<>();
-//         Stack<Node> st = new Stack<>();
-//         st.push(node);
-
-//         map.put(node, new Node(node.val));
-
-//         while (!st.isEmpty()) {
-//             Node curr = st.pop();
-
-//             for (Node neighbor : curr.neighbors) {
-//                 if (!map.containsKey(neighbor)) {
-//                     map.put(neighbor, new Node(neighbor.val)); 
-//                     st.push(neighbor);                        
-//                 }
-//                 map.get(curr).neighbors.add(map.get(neighbor)); 
-//             }
-//         }
-
-//         return map.get(node);
-//     }
-// }
