@@ -7,7 +7,6 @@ class Solution {
             for(int j=0; j<grid[0].length; j++){
                 if(!visited[i][j] && grid[i][j]=='1'){
                     numberOfIslands++;
-                    visited[i][j]=true;
                     numberOfIslands(i,j,visited, grid);
                 }
             }
@@ -17,6 +16,7 @@ class Solution {
     }
 
     private void numberOfIslands(int i, int j, boolean[][] visited, char[][] grid){
+        visited[i][j]=true;
         int[][] directions = new int[][]{{-1,0},{0,-1},{1,0},{0,1}};
 
         for(int[] change : directions){
