@@ -10,61 +10,25 @@
  */
 class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        if (list1 == null)
-            return list2;
-        if (list2 == null)
-            return list1;
-        if (list1 == null && list2 == null)
-            return null;
+        if(list1==null && list2==null) return null;
+        else if(list1==null) return list2;
+        else if(list2==null) return list1;
 
-        if(list2.val<=list1.val){
-            ListNode prev = list2;
-            ListNode curr = list2;
-            
-            while (list1!=null&&curr!=null) {
-                if(curr.val<=list1.val) {
-                    prev=curr;
-                    curr=curr.next;
-                } else {
-                    prev.next = new ListNode(list1.val, curr);
-                    prev=prev.next;
-                    list1=list1.next;
-                }
-            }
+        PriorityQueue<ListNode> pq = new PriorityQueue<>((a,b)->a.val-b.val);
 
-            if(curr==null) {
-                while(list1!=null) {
-                    prev.next = new ListNode(list1.val);
-                    prev=prev.next;
-                    list1=list1.next;
-                }
-            }
+        pq.offer(list1);
+        pq.offer(list2);
+        ListNode newHead = new ListNode();
+        ListNode result = newHead;
 
-            return list2;
-        } else {
-            ListNode prev = list1;
-            ListNode curr = list1;
-            
-            while(curr!=null&&list2!=null) {
-                if(curr.val<=list2.val) {
-                    prev=curr;
-                    curr=curr.next;
-                } else {
-                    prev.next = new ListNode(list2.val, curr);
-                    prev=prev.next;
-                    list2=list2.next;
-                }
-            }
+        while(!pq.isEmpty()){
+            ListNode top = pq.poll();
+            newHead.next=top;
+            if(top.next!=null) pq.offer(top.next);
+            newHead=newHead.next;
 
-            if(curr==null) {
-                while(list2!=null) {
-                    prev.next = new ListNode(list2.val);
-                    prev=prev.next;
-                    list2=list2.next;
-                }
-            }
-
-            return list1;
         }
+
+        return result.next;
     }
 }
