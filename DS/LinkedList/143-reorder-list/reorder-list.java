@@ -19,11 +19,6 @@ class Solution {
             ListNode nextToNext = result.next;
             ListNode fromEnd = q.poll();
 
-            if (result == fromEnd) {
-                result.next = null;
-                break;
-            }
-
             result.next = fromEnd;
 
             //To break even length issues
