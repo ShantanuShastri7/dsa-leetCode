@@ -13,9 +13,6 @@ class Solution {
         }
 
         for(int i=0; i<nums.length-k; i++){
-            System.out.print(lastMax[i]+"\n");
-        }
-        for(int i=0; i<nums.length-k; i++){
             result=Math.max(result, nums[i]+lastMax[i]);
         }
 
