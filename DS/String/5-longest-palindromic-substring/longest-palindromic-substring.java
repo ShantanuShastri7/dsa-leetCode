@@ -16,6 +16,9 @@ class Solution {
         int centerIndex=0;
 
         for(int i=1; i<transformed.length()-1; i++){
+            //distance b/w this and center -> i-C
+            //the mirror should be this distance in the other direction from C
+            // C - (i - C) -> 2C -i
             int iMirror = 2*C-i;
 
             if(i<R){
@@ -37,6 +40,8 @@ class Solution {
             }
         }
 
+        //centerIndex - maxLen gives starting index at transformed string
+        //divide that by 2 to get the original starting
         int start = (centerIndex - maxLen) / 2;
         return s.substring(start, start + maxLen);
     }
