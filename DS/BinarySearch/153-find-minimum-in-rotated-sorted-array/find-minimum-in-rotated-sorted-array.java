@@ -1,27 +1,33 @@
 class Solution {
     public int findMin(int[] nums) {
-        int i=0; 
-        int j=nums.length - 1;
-        int result=Integer.MAX_VALUE;
+        boolean leftSorted=false;
+        boolean rightSorted=false;
 
-        while(i<=j){
-            boolean leftSorted=false;
-            boolean rightSorted=false;
-            int num = (i+j)/2;
+        int left=0;
+        int right=nums.length-1;
+        int res=Integer.MAX_VALUE;
 
-            if(nums[num]>=nums[i]) leftSorted=true;
-            if(nums[num]<=nums[j]) rightSorted=true;
+        while(left<=right){
+            int mid = left + (right-left)/2;
+            if(nums[left]<=nums[mid]) leftSorted=true;
+            else leftSorted=false;
+            if(nums[mid]<=nums[right]) rightSorted=true;
+            else rightSorted=false;
 
             if(leftSorted && rightSorted){
-                return nums[i]<result?nums[i]:result;
-            } else if(leftSorted) {
-                i=num+1;
-                if(nums[i]<result) result=nums[i];
-            } else {
-                if(nums[num]<result) result=nums[num];
-                j=num-1;
+                res=Math.min(res, nums[left]);
+                return res;
+            } else if(leftSorted){
+                res=Math.min(res, nums[left]);
+                left=mid+1;
+            } else{
+                res=Math.min(res, nums[mid]);
+                right=mid-1;
             }
+
+            System.out.print("res: "+res+"\n");
         }
-        return result;
+
+        return res;
     }
 }
