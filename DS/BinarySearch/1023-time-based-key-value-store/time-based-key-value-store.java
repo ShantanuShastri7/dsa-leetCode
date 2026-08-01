@@ -1,3 +1,7 @@
+//Could be solver using Map<String, int[][]>> -> <Key, {{5, value},{6, value}}>
+//Sorting this int[][] after insertion and using Binary Search during get
+//But set will have nLogn vs treeMap's Logn
+//Get in both cases would be Logn, 
 class TimeMap {
     Map<String, TreeMap<Integer, String>> map;
 
