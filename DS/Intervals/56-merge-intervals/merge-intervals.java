@@ -1,34 +1,27 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 class Solution {
     public int[][] merge(int[][] intervals) {
-        if (intervals.length <= 1) return intervals;
-        
-        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
-        
-        List<int[]> res = new ArrayList<>();
-        
-        int[] currentInterval = intervals[0];
-        res.add(currentInterval);
+        ArrayList<int[]> ans = new ArrayList<>();
+        Arrays.sort(intervals, (a,b)->{return a[0]-b[0];});
 
-        for (int[] interval : intervals) {
-            int currentEnd = currentInterval[1];
-            int nextBegin = interval[0];
-            int nextEnd = interval[1];
-            
+        int[] n = new int[]{intervals[0][0], intervals[0][1]};
+        ans.add(n);
 
-            if (currentEnd >= nextBegin) {
-
-                currentInterval[1] = Math.max(currentEnd, nextEnd);
-            } else {
-
-                currentInterval = interval;
-                res.add(currentInterval);
+        for(int i=1; i<intervals.length; i++){
+            if(intervals[i][0]<=n[1]){
+                n[1]=Math.max(n[1], intervals[i][1]);
+            }else{
+                n = new int[]{intervals[i][0], intervals[i][1]};
+                ans.add(n);
             }
         }
-        
-        return res.toArray(new int[res.size()][]);
+
+        int[][] res = new int[ans.size()][2];
+
+        for(int i=0; i<ans.size(); i++){
+            res[i][0]=ans.get(i)[0];
+            res[i][1]=ans.get(i)[1];
+        }
+
+        return res;
     }
 }
