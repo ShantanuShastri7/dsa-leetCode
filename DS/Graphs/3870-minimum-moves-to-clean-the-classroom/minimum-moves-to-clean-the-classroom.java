@@ -30,11 +30,11 @@ class Solution {
         
         int totalLitters = idCounter;
         
-        // If there is no litter to begin with, it takes 0 moves!
         if (totalLitters == 0) return 0;
         
         // The winning bitmask: e.g., if 3 litters, target is binary 111 (which is 7)
         int targetMask = (1 << totalLitters) - 1;
+
         int[][][] energyMax = new int[n][m][targetMask];
         for(int i=0; i<n; i++) {
             for(int j=0; j<m; j++){
@@ -45,10 +45,6 @@ class Solution {
         // Queue stores arrays of: { x, y, currentEnergy, bitmask, movesTaken }
         Queue<int[]> queue = new LinkedList<>();
         queue.add(new int[]{startX, startY, energy, 0, 0});
-        
-        // HashSet to track visited states using a String: "x,y,bitmask,energy"
-        HashSet<String> visited = new HashSet<>();
-        visited.add(startX + "," + startY + "," + 0 + "," + energy);
         
         int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
         
@@ -93,12 +89,8 @@ class Solution {
                         return moves + 1;
                     }
                     
-                    // Encode the state to check if we've been here in this exact condition
-                    String state = nx + "," + ny + "," + nMask + "," + nEnergy;
-                    
-                    if (!visited.contains(state) && energyMax[nx][ny][nMask]<nEnergy) {
+                    if (energyMax[nx][ny][nMask]<nEnergy) {
                         energyMax[nx][ny][nMask]=nEnergy;
-                        visited.add(state);
                         queue.add(new int[]{nx, ny, nEnergy, nMask, moves + 1});
                     }
                 }
