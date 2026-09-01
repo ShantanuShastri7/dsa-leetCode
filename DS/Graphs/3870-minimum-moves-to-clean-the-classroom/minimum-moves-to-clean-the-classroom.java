@@ -58,9 +58,9 @@ class Solution {
             int moves = curr[4];
             
             // If we are out of energy and NOT standing on a Reset point, we can't move.
-            if (cEnergy == 0 && classroom[cx].charAt(cy) != 'R') {
-                continue;
-            }
+            // if (cEnergy == 0 && classroom[cx].charAt(cy) != 'R') {
+            //     continue;
+            // }
             
             // Explore all 4 adjacent cells
             for (int[] dir : directions) {
