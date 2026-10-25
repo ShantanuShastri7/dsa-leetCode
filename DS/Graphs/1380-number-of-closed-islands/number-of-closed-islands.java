@@ -6,9 +6,7 @@ class Solution {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
                 if (grid[i][j] == 0 && !visited[i][j]) {
-                    System.out.print("x: " + i + "y: " + j + "\n");
                     if (!helper(grid, visited, i, j)) {
-                        System.out.print("Incrementing \n");
                         res++;
                     }
                 }
