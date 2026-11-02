@@ -21,6 +21,8 @@ class Solution {
             return 1;
         }
 
+        if(dir!=-1 && dp[x][y][dir]!=-1) return dp[x][y][dir];
+
         if(grid[x][y]==1){
             if(dir==0){
                 int newx = x+1;
@@ -40,8 +42,6 @@ class Solution {
                 }
             }
         }
-
-        if(dir!=-1 && dp[x][y][dir]!=-1) return dp[x][y][dir];
 
         int[][] direcs = new int[][]{{1,0}, {0,1}};
         int res=0;
